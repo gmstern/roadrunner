@@ -3,6 +3,7 @@ import java.awt.*;
 import javax.swing.*;
 //import javax.swing.plaf.PanelUI;
 import java.awt.event.*;
+import java.util.Random;
 
 // Class that creates game object and contains main game logic.
 public class Roadrunner extends JPanel implements ActionListener, KeyListener{
@@ -17,19 +18,26 @@ public class Roadrunner extends JPanel implements ActionListener, KeyListener{
    Player player;
    JLabel leftBird;
    JLabel rightBird;
-   //Timer t = new Timer();
+   Sprite sprite;
+   JLabel spriteLabel;
+   static int spriteIndex;
+   static String spritePath;
+   static String[] spriteArray = { "lizard.png", "car.png", "cactus.png" };
+   public static Random generator = new Random();
+
+   // Timer t = new Timer();
    double x = 0, y = 0, velx = 0, vely = 0;
 
    // Construcor
    public Roadrunner() {
-      //t.start();
+      // t.start();
       frame.addKeyListener(this);
       frame.setFocusable(true);
       frame.setFocusTraversalKeysEnabled(false);
    }
 
    // Main Method
-   public static void main(final String[] args) throws Exception {
+   public static void main(final String[] args) throws InterruptedException {
       // creates basic window
       Roadrunner game = new Roadrunner();
       game.pane.setPreferredSize(new Dimension(950, 800));
@@ -60,7 +68,32 @@ public class Roadrunner extends JPanel implements ActionListener, KeyListener{
 
       // Add Game Logic Here
       // Add Action Listener for any click to begin game
+      // Randomyly Populate Sprites
 
+      int endGame = 0;
+      while(endGame < 10000) {
+         spriteIndex = generator.nextInt(spriteArray.length);
+         switch (spriteIndex) {
+            case 0:
+               spritePath = "lizard.png";
+               break;
+            case 1:
+               spritePath = "car.png";
+               break;
+            case 2: 
+               spritePath = "cactus.png";
+               break;
+         }
+         game.sprite = new Sprite(spritePath, 160);
+         game.spriteLabel = game.sprite.getSprite();
+         game.pane.add(game.spriteLabel, JLayeredPane.DEFAULT_LAYER, 0);
+         
+         //game.sprite.setSpriteY();
+         //game.sprite.updateSprite();
+         
+         endGame++;
+         Thread.sleep(3000);
+      }
   }
 
   // Method to detect when key pressed and updates player - interrupts sequence of main method
