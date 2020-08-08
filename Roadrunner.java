@@ -1,6 +1,8 @@
 import java.awt.*;
 //import javax.management.timer.Timer;
 import javax.swing.*;
+import javax.swing.plaf.FontUIResource;
+
 //import javax.swing.plaf.PanelUI;
 import java.awt.event.*;
 import java.util.Random;
@@ -20,10 +22,17 @@ public class Roadrunner extends JPanel implements ActionListener, KeyListener{
    JLabel rightBird;
    Sprite sprite;
    JLabel spriteLabel;
+   int spriteY;
    static int spriteIndex;
    static String spritePath;
    static String[] spriteArray = { "lizard.png", "car.png", "cactus.png" };
    public static Random generator = new Random();
+   static JLabel labelScore;
+   static JLabel labelLives;
+   static int livesLeft = 3;
+   static int scoreTotal = 0;
+   static String lives = "Lives: " + livesLeft;
+   static String score = "Score: " + scoreTotal;
 
    // Timer t = new Timer();
    double x = 0, y = 0, velx = 0, vely = 0;
@@ -47,18 +56,32 @@ public class Roadrunner extends JPanel implements ActionListener, KeyListener{
 
       // add background
       final JLabel bg = Background.getBackground();
-      game.pane.add(bg, JLayeredPane.DEFAULT_LAYER, 1);
+      game.pane.add(bg, JLayeredPane.DEFAULT_LAYER, 2);
 
+      // add score and lives
+      labelLives = new JLabel();
+      labelScore = new JLabel();
+      labelLives.setText(lives);
+      labelScore.setText(score);
+      labelLives.setForeground(Color.black);
+      labelScore.setForeground(Color.black);
+      labelLives.setFont(new Font("Serif", Font.BOLD, 24));
+      labelScore.setFont(new Font("Serif", Font.BOLD, 24));
+      labelScore.setBounds(200, 25, 100, 100);
+      labelLives.setBounds(200, 75, 100, 100);
+      game.pane.add(labelLives, JLayeredPane.DEFAULT_LAYER, 0);
+      game.pane.add(labelScore, JLayeredPane.DEFAULT_LAYER, 0);
+   
       // add initial player to frame
       game.player = new Player(350, 650);
       game.leftBird = game.player.getLeftBird();
-      game.pane.add(game.leftBird, JLayeredPane.DEFAULT_LAYER, 0);
+      game.pane.add(game.leftBird, JLayeredPane.DEFAULT_LAYER, 1);
 
       // add arrows to frame
       final JLabel leftArrow = Button.getLeftArrow();
       final JLabel rightArrow = Button.getRightArrow();
-      game.pane.add(leftArrow, JLayeredPane.DEFAULT_LAYER, 0);
-      game.pane.add(rightArrow, JLayeredPane.DEFAULT_LAYER, 0);
+      game.pane.add(leftArrow, JLayeredPane.DEFAULT_LAYER, 1);
+      game.pane.add(rightArrow, JLayeredPane.DEFAULT_LAYER, 1);
 
       // complete frame set up
       game.frame.add(game.pane);
@@ -68,32 +91,52 @@ public class Roadrunner extends JPanel implements ActionListener, KeyListener{
 
       // Add Game Logic Here
       // Add Action Listener for any click to begin game
-      // Randomyly Populate Sprites
+      // NEED TO ADD GAME LOOP & POPULATE SPRITES IN LOOP
 
-      int endGame = 0;
-      while(endGame < 10000) {
-         spriteIndex = generator.nextInt(spriteArray.length);
-         switch (spriteIndex) {
-            case 0:
-               spritePath = "lizard.png";
-               break;
-            case 1:
-               spritePath = "car.png";
-               break;
-            case 2: 
-               spritePath = "cactus.png";
-               break;
-         }
-         game.sprite = new Sprite(spritePath, 160);
-         game.spriteLabel = game.sprite.getSprite();
-         game.pane.add(game.spriteLabel, JLayeredPane.DEFAULT_LAYER, 0);
-         
-         //game.sprite.setSpriteY();
-         //game.sprite.updateSprite();
-         
-         endGame++;
-         Thread.sleep(3000);
+      spriteIndex = generator.nextInt(spriteArray.length);
+      switch (spriteIndex) {
+         case 0:
+            spritePath = "lizard.png";
+            break;
+         case 1:
+            spritePath = "car.png";
+            break;
+         case 2: 
+            spritePath = "cactus.png";
+            break;
       }
+
+      game.sprite = new Sprite(spritePath, 160);
+      game.spriteLabel = game.sprite.getSprite();
+      game.pane.add(game.spriteLabel, JLayeredPane.DEFAULT_LAYER, 0);
+      
+      int endGame = 0;
+         while(endGame < 10000) {
+            if (game.spriteY <= 670){
+               game.pane.remove(game.spriteLabel);
+               game.sprite.updateSpriteY();
+               game.spriteLabel = game.sprite.updateImage();
+               game.pane.add(game.spriteLabel, JLayeredPane.DEFAULT_LAYER, 0);
+               game.frame.add(game.pane);
+               game.frame.pack();
+               game.frame.setLocationRelativeTo(null);
+               game.frame.setVisible(true);
+               game.pane.revalidate();
+               game.pane.repaint();
+               game.spriteY = game.sprite.getSpriteY();
+            }
+            if (game.spriteY >= 670) {
+               game.pane.remove(game.spriteLabel);
+               game.frame.add(game.pane);
+               game.frame.pack();
+               game.frame.setLocationRelativeTo(null);
+               game.frame.setVisible(true);
+               game.pane.revalidate();
+               game.pane.repaint();
+            }
+            endGame++;
+            Thread.sleep(100);
+         }
   }
 
   // Method to detect when key pressed and updates player - interrupts sequence of main method

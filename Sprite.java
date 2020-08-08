@@ -64,35 +64,25 @@ public class Sprite {
         return xValue;
     }
 
-    /* Method to update sprite yValue
-    public void setSpriteY(){
-        while (this.spriteY <= 670){
-            this.spriteY += 10;
-        }
-        
-    }*/
-
-    /*Method to update and move sprite down screen each frame
-    public JLabel updateSprite(){
-        JLabel updatedLabel;
-        try
-        {
-            this.image = ImageIO.read(new File(this.filePath));
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            System.exit(1);
-        }
-        ImageIcon imageIcon = new ImageIcon(this.image);
-        updatedLabel = new JLabel();
-        updatedLabel.setIcon(imageIcon);
-        
-        while (this.spriteY <= 670){
-            updatedLabel.setBounds(this.spriteX, this.spriteY, imageIcon.getIconWidth() + 20, imageIcon.getIconHeight() + 20);
+    // Method to update sprite yValue
+    public void updateSpriteY(){
             this.spriteY += 10;
         }
 
-        return updatedLabel;
-    }*/
+    //Method to update and move sprite down screen each frame
+    public JLabel updateImage(){
+        JLabel updatedImg;
+        
+        if (this.spriteY <= 670){
+            updatedImg = getSprite();
+        }
+        else {
+            updatedImg = null;
+        }
+        return updatedImg;
+    }
+     // Method to return sprite y position as type int.
+	public int getSpriteY() {
+		return this.spriteY;
+	}
 }
