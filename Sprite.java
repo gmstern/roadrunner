@@ -71,7 +71,6 @@ public class Sprite {
 	public int getSpriteY() {
 		return this.spriteY;
     }
-    
 
     // Method to randomly generate Sprites
     public String getSpritePath(){

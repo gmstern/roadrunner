@@ -1,9 +1,5 @@
 import java.awt.*;
-import javax.management.timer.Timer;
 import javax.swing.*;
-import javax.swing.plaf.FontUIResource;
-import java.lang.*;
-//import javax.swing.plaf.PanelUI;
 import java.awt.event.*;
 import java.util.Random;
 
@@ -24,19 +20,17 @@ public class Roadrunner extends JPanel implements ActionListener, KeyListener{
    JLabel spriteLabel;
    int spriteY;
    public static Random generator = new Random();
-   static JLabel labelScore;
-   static JLabel labelLives;
-   static int livesLeft = 3;
-   static int scoreTotal = 0;
-   static String lives = "Lives: " + livesLeft;
-   static String score = "Score: " + scoreTotal;
    double x = 0, y = 0, velx = 0, vely = 0;
+   Score score;
+   Lives lives;
   
    // Construcor
    public Roadrunner() {
       frame.addKeyListener(this);
       frame.setFocusable(true);
       frame.setFocusTraversalKeysEnabled(false);
+      score = new Score();
+      lives = new Lives();
    }
 
    // Main Method
@@ -53,18 +47,8 @@ public class Roadrunner extends JPanel implements ActionListener, KeyListener{
       game.pane.add(bg, JLayeredPane.DEFAULT_LAYER, 2);
 
       // add score and lives
-      labelLives = new JLabel();
-      labelScore = new JLabel();
-      labelLives.setText(lives);
-      labelScore.setText(score);
-      labelLives.setForeground(Color.black);
-      labelScore.setForeground(Color.black);
-      labelLives.setFont(new Font("Serif", Font.BOLD, 24));
-      labelScore.setFont(new Font("Serif", Font.BOLD, 24));
-      labelScore.setBounds(200, 25, 100, 100);
-      labelLives.setBounds(200, 75, 100, 100);
-      game.pane.add(labelLives, JLayeredPane.DEFAULT_LAYER, 0);
-      game.pane.add(labelScore, JLayeredPane.DEFAULT_LAYER, 0);
+      game.pane.add(game.lives.setLives(), JLayeredPane.DEFAULT_LAYER, 0);
+      game.pane.add(game.score.setScore(), JLayeredPane.DEFAULT_LAYER, 0);
    
       // add initial player to frame
       game.player = new Player(350, 650);
@@ -90,6 +74,7 @@ public class Roadrunner extends JPanel implements ActionListener, KeyListener{
          
          int speed = 10;
          int count = 0;
+         //need to change to != 0 lives
          while (count < 10000) {
             game.pane.remove(game.spriteLabel);
             if (game.sprite.getSpriteY() < 670){
@@ -104,6 +89,9 @@ public class Roadrunner extends JPanel implements ActionListener, KeyListener{
                game.spriteLabel = game.sprite.getSprite();
                game.pane.add(game.spriteLabel, JLayeredPane.DEFAULT_LAYER, 0);
             }
+            
+            //ADD COLLISION DETECTION
+
             game.frame.add(game.pane);
             game.frame.pack();
             game.frame.setLocationRelativeTo(null);
