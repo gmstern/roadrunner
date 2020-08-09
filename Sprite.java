@@ -5,8 +5,6 @@ import java.io.*;
 import java.awt.image.BufferedImage; 
 import java.util.Random;
 
-//TO DO: NEED TO MOVE SPRITES DOWN & REMOVE
-
 // Class that creates the sprites for the game
 public class Sprite {
     final int SPRITE_Y_START = 160;
@@ -18,12 +16,6 @@ public class Sprite {
     private BufferedImage image;
     private String filePath;
     public static Random generator = new Random();
-
-   
-    /*
-    Set: Create & Randomly place within bounds
-    Get: Update - move down screen & interact with bird & remove
-    */
     
     //Constructor. Takes in image path and sets up as JLABEL
     public Sprite (){
@@ -65,21 +57,14 @@ public class Sprite {
     }
 
     // Method to update sprite yValue
-    public void updateSpriteY(){
-            this.spriteY += 10;
-            //add one to speed
+    public void updateSpriteY(int speed){
+            this.spriteY += speed;
         }
 
     //Method to update and move sprite down screen each frame
     public JLabel updateImage(){
         JLabel updatedImg;
-        
-        if (this.spriteY <= 670){
-            updatedImg = getSprite();
-        }
-        else {
-            updatedImg = null;
-        }
+        updatedImg = getSprite();
         return updatedImg;
     }
      // Method to return sprite y position as type int.

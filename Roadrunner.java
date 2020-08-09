@@ -84,22 +84,22 @@ public class Roadrunner extends JPanel implements ActionListener, KeyListener{
       game.frame.setVisible(true);
 
       // Main Game Loop
-      // while (livesLeft != 0){
          game.sprite = new Sprite();
          game.spriteLabel = game.sprite.getSprite();
          game.pane.add(game.spriteLabel, JLayeredPane.DEFAULT_LAYER, 0);
          
-         int count = 0 ;
+         int speed = 10;
+         int count = 0;
          while (count < 10000) {
             game.pane.remove(game.spriteLabel);
-            if (game.spriteY <= 670){
-               game.sprite.updateSpriteY();
-               game.spriteLabel = game.sprite.updateImage();
+            if (game.sprite.getSpriteY() < 670){
+               game.sprite.updateSpriteY(speed);
+               game.spriteLabel = game.sprite.getSprite();
                game.pane.add(game.spriteLabel, JLayeredPane.DEFAULT_LAYER, 0);
-               game.spriteY = game.sprite.getSpriteY();
             }
-            if (game.spriteY >= 670){
+            if (game.sprite.getSpriteY() >= 670){
                game.pane.remove(game.spriteLabel);
+               speed++;
                game.sprite = new Sprite();
                game.spriteLabel = game.sprite.getSprite();
                game.pane.add(game.spriteLabel, JLayeredPane.DEFAULT_LAYER, 0);
