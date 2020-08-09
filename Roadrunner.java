@@ -23,9 +23,6 @@ public class Roadrunner extends JPanel implements ActionListener, KeyListener{
    Sprite sprite;
    JLabel spriteLabel;
    int spriteY;
-   static int spriteIndex;
-   static String spritePath;
-   static String[] spriteArray = { "lizard.png", "car.png", "cactus.png" };
    public static Random generator = new Random();
    static JLabel labelScore;
    static JLabel labelLives;
@@ -34,15 +31,9 @@ public class Roadrunner extends JPanel implements ActionListener, KeyListener{
    static String lives = "Lives: " + livesLeft;
    static String score = "Score: " + scoreTotal;
    double x = 0, y = 0, velx = 0, vely = 0;
-   // Create Timer
-   Timer t = new Timer();
-   long nowTime;
-   long startTime;
-
+  
    // Construcor
    public Roadrunner() {
-      t.start();
-      this.startTime = System.currentTimeMillis();
       frame.addKeyListener(this);
       frame.setFocusable(true);
       frame.setFocusTraversalKeysEnabled(false);
@@ -94,55 +85,36 @@ public class Roadrunner extends JPanel implements ActionListener, KeyListener{
 
       // Main Game Loop
       // while (livesLeft != 0){
-      game.nowTime = System.currentTimeMillis();
-      //Add if loop for spawning sprites
-      // if (game.nowTime - game.startTime >= 2000){
-         spriteIndex = generator.nextInt(spriteArray.length);
-         switch (spriteIndex) {
-            case 0:
-               spritePath = "lizard.png";
-               break;
-            case 1:
-               spritePath = "car.png";
-               break;
-            case 2: 
-               spritePath = "cactus.png";
-               break;
-         }
-         game.sprite = new Sprite(spritePath, 160);
+         game.sprite = new Sprite();
          game.spriteLabel = game.sprite.getSprite();
          game.pane.add(game.spriteLabel, JLayeredPane.DEFAULT_LAYER, 0);
          
          int count = 0 ;
          while (count < 10000) {
+            game.pane.remove(game.spriteLabel);
             if (game.spriteY <= 670){
-               game.pane.remove(game.spriteLabel);
                game.sprite.updateSpriteY();
                game.spriteLabel = game.sprite.updateImage();
                game.pane.add(game.spriteLabel, JLayeredPane.DEFAULT_LAYER, 0);
-               game.frame.add(game.pane);
-               game.frame.pack();
-               game.frame.setLocationRelativeTo(null);
-               game.frame.setVisible(true);
-               game.pane.revalidate();
-               game.pane.repaint();
                game.spriteY = game.sprite.getSpriteY();
             }
-            if (game.spriteY >= 670) {
+            if (game.spriteY >= 670){
                game.pane.remove(game.spriteLabel);
-               game.frame.add(game.pane);
-               game.frame.pack();
-               game.frame.setLocationRelativeTo(null);
-               game.frame.setVisible(true);
-               game.pane.revalidate();
-               game.pane.repaint();
+               game.sprite = new Sprite();
+               game.spriteLabel = game.sprite.getSprite();
+               game.pane.add(game.spriteLabel, JLayeredPane.DEFAULT_LAYER, 0);
             }
+            game.frame.add(game.pane);
+            game.frame.pack();
+            game.frame.setLocationRelativeTo(null);
+            game.frame.setVisible(true);
+            game.pane.revalidate();
+            game.pane.repaint();
+
             Thread.sleep(100);
             count++;
          }
-            // game.startTime = game.nowTime;
-         // }
-      // }
+         
       //Add End Game
   }
 
@@ -218,8 +190,6 @@ public boolean isRightKeyPressed(KeyEvent e){
       return false;
    }
 }
-
-
 
 @Override
 public void keyTyped(KeyEvent e) {

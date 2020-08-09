@@ -9,9 +9,10 @@ import java.util.Random;
 
 // Class that creates the sprites for the game
 public class Sprite {
-    BufferedImage imgage = null;
-    //BufferedImage  imgCactus = null;
-    //BufferedImage imgLizard = null;
+    final int SPRITE_Y_START = 160;
+    final String LIZARD_PATH = "lizard.png";
+    final String CAR_PATH = "car.png";
+    final String CACTUS_PATH = "cactus.png";
     Boolean isHarmful = null;
     private int spriteX, spriteY;
     private BufferedImage image;
@@ -23,24 +24,23 @@ public class Sprite {
     Set: Create & Randomly place within bounds
     Get: Update - move down screen & interact with bird & remove
     */
-
+    
     //Constructor. Takes in image path and sets up as JLABEL
-    public Sprite (String imgPath, int y){
+    public Sprite (){
         this.spriteX = setSpriteX();
-        this.spriteY =  y;
-        this.filePath = imgPath;
+        this.spriteY =  SPRITE_Y_START;
+        this.filePath = this.getSpritePath();
 
-        if (this.filePath == "lizard.png"){
+        if (this.filePath == LIZARD_PATH){
             this.isHarmful = false;
         }
         else {
             this.isHarmful = true;
         }
     }
-
+    
     // Method to create and randomly place Sprite. Returns updated JLabel.
     public JLabel getSprite(){
-        //BufferedImage image = null;
         try
         {
             this.image = ImageIO.read(new File(this.filePath));
@@ -67,6 +67,7 @@ public class Sprite {
     // Method to update sprite yValue
     public void updateSpriteY(){
             this.spriteY += 10;
+            //add one to speed
         }
 
     //Method to update and move sprite down screen each frame
@@ -84,5 +85,25 @@ public class Sprite {
      // Method to return sprite y position as type int.
 	public int getSpriteY() {
 		return this.spriteY;
-	}
+    }
+    
+
+    // Method to randomly generate Sprites
+    public String getSpritePath(){
+        String spritePath = "";
+        String[] spriteArray = { LIZARD_PATH, CAR_PATH, CACTUS_PATH };
+        int spriteIndex = generator.nextInt(spriteArray.length);
+        switch (spriteIndex) {
+        case 0:
+            spritePath = LIZARD_PATH;
+            break;
+        case 1:
+            spritePath = CAR_PATH;
+            break;
+        case 2: 
+            spritePath = CACTUS_PATH;
+            break;
+        }
+        return spritePath;
+    }
 }
