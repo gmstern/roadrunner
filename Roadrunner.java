@@ -1,8 +1,8 @@
 import java.awt.*;
-//import javax.management.timer.Timer;
+import javax.management.timer.Timer;
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
-
+import java.lang.*;
 //import javax.swing.plaf.PanelUI;
 import java.awt.event.*;
 import java.util.Random;
@@ -33,13 +33,16 @@ public class Roadrunner extends JPanel implements ActionListener, KeyListener{
    static int scoreTotal = 0;
    static String lives = "Lives: " + livesLeft;
    static String score = "Score: " + scoreTotal;
-
-   // Timer t = new Timer();
    double x = 0, y = 0, velx = 0, vely = 0;
+   // Create Timer
+   Timer t = new Timer();
+   long nowTime;
+   long startTime;
 
    // Construcor
    public Roadrunner() {
-      // t.start();
+      t.start();
+      this.startTime = System.currentTimeMillis();
       frame.addKeyListener(this);
       frame.setFocusable(true);
       frame.setFocusTraversalKeysEnabled(false);
@@ -89,29 +92,29 @@ public class Roadrunner extends JPanel implements ActionListener, KeyListener{
       game.frame.setLocationRelativeTo(null);
       game.frame.setVisible(true);
 
-      // Add Game Logic Here
-      // Add Action Listener for any click to begin game
-      // NEED TO ADD GAME LOOP & POPULATE SPRITES IN LOOP
-
-      spriteIndex = generator.nextInt(spriteArray.length);
-      switch (spriteIndex) {
-         case 0:
-            spritePath = "lizard.png";
-            break;
-         case 1:
-            spritePath = "car.png";
-            break;
-         case 2: 
-            spritePath = "cactus.png";
-            break;
-      }
-
-      game.sprite = new Sprite(spritePath, 160);
-      game.spriteLabel = game.sprite.getSprite();
-      game.pane.add(game.spriteLabel, JLayeredPane.DEFAULT_LAYER, 0);
-      
-      int endGame = 0;
-         while(endGame < 10000) {
+      // Main Game Loop
+      // while (livesLeft != 0){
+      game.nowTime = System.currentTimeMillis();
+      //Add if loop for spawning sprites
+      // if (game.nowTime - game.startTime >= 2000){
+         spriteIndex = generator.nextInt(spriteArray.length);
+         switch (spriteIndex) {
+            case 0:
+               spritePath = "lizard.png";
+               break;
+            case 1:
+               spritePath = "car.png";
+               break;
+            case 2: 
+               spritePath = "cactus.png";
+               break;
+         }
+         game.sprite = new Sprite(spritePath, 160);
+         game.spriteLabel = game.sprite.getSprite();
+         game.pane.add(game.spriteLabel, JLayeredPane.DEFAULT_LAYER, 0);
+         
+         int count = 0 ;
+         while (count < 10000) {
             if (game.spriteY <= 670){
                game.pane.remove(game.spriteLabel);
                game.sprite.updateSpriteY();
@@ -134,9 +137,13 @@ public class Roadrunner extends JPanel implements ActionListener, KeyListener{
                game.pane.revalidate();
                game.pane.repaint();
             }
-            endGame++;
             Thread.sleep(100);
+            count++;
          }
+            // game.startTime = game.nowTime;
+         // }
+      // }
+      //Add End Game
   }
 
   // Method to detect when key pressed and updates player - interrupts sequence of main method
@@ -211,6 +218,8 @@ public boolean isRightKeyPressed(KeyEvent e){
       return false;
    }
 }
+
+
 
 @Override
 public void keyTyped(KeyEvent e) {
