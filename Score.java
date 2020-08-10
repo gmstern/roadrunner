@@ -1,9 +1,11 @@
 import java.awt.*;
 import javax.swing.*;
 
+// Class that updates and displays score
 public class Score {
     int scoreTotal = 0;
     
+    // Method to set score and returns JLabel
     public JLabel setScore(){
         JLabel labelScore = new JLabel();
         labelScore.setText("Score: " + this.scoreTotal);
@@ -14,10 +16,9 @@ public class Score {
         return labelScore;
     }
 
-    //Method to update JLabel
+    // Method to update score and returns JLabel
     public JLabel updateScore(){
         this.scoreTotal += 10;
-        System.out.println("Score: " + this.scoreTotal);
         return setScore();
     }
 }

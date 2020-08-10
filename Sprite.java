@@ -5,23 +5,20 @@ import java.io.*;
 import java.awt.image.BufferedImage; 
 import java.util.Random;
 
-//Method to return isHarmful
-//methods to return width & height
-
-// Class that creates the sprites for the game
+// Class that creates and updates the sprites
 public class Sprite {
     final int SPRITE_Y_START = 160;
     final String LIZARD_PATH = "lizard.png";
     final String CAR_PATH = "car.png";
     final String CACTUS_PATH = "cactus.png";
-    Boolean isHarmful = null;
+    private Boolean isHarmful = null;
     private int spriteX, spriteY;
     private BufferedImage image;
     private String filePath;
     public static Random generator = new Random();
     private int spriteWidth, spriteHeight;
     
-    //Constructor. Takes in image path and sets up as JLABEL
+    // Constructor
     public Sprite (){
         this.spriteX = setSpriteX();
         this.spriteY =  SPRITE_Y_START;
@@ -56,19 +53,13 @@ public class Sprite {
         return jLabel;
     }
 
-    // Method to create and randomly place sprite on game board.
+    // Method to create and randomly select sprite x-value
     public int setSpriteX(){
         int xValue = 370 + generator.nextInt(160);
         return xValue;
     }
 
-    // Method to return sprite X value
-    public int getSpriteX(){
-        
-        return this.spriteX;
-    }
-
-    // Method to update sprite yValue
+    // Method to update sprite Y value (i.e. speed)
     public void updateSpriteY(int speed){
             this.spriteY += speed;
         }
@@ -78,10 +69,6 @@ public class Sprite {
         JLabel updatedImg;
         updatedImg = getSprite();
         return updatedImg;
-    }
-     // Method to return sprite y position as type int.
-	public int getSpriteY() {
-		return this.spriteY;
     }
 
     // Method to randomly generate Sprites
@@ -103,17 +90,27 @@ public class Sprite {
         return spritePath;
     }
 
-    //Return sprite width
+     // Method to return sprite X value as type int
+     public int getSpriteX(){
+        return this.spriteX;
+    }
+
+    // Method to return sprite y position as type int
+	public int getSpriteY() {
+		return this.spriteY;
+    }
+
+    // Method to return sprite width as type int
 	public int getSpriteWidth() {
 		return this.spriteWidth;
     }
 
-    //Return sprite height
+    // Method to return sprite height as type int
 	public int getSpriteHeight() {
 		return this.spriteHeight;
     }
     
-    //Return boolean isHarmful
+    // Method to return whether or not sprite is harmful as type boolean
     public boolean isHarmful(){
         return this.isHarmful;
     }

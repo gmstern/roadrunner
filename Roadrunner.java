@@ -1,35 +1,30 @@
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
-import java.util.Random;
 import java.awt.Rectangle;
 
 // Class that creates game object and contains main game logic.
 public class Roadrunner extends JPanel implements ActionListener, KeyListener{
-   /**
-    *
-    */
    private static final long serialVersionUID = 1L;
-   JFrame frame = new JFrame("Roadrunner");
-   JLayeredPane pane = new JLayeredPane();
-   boolean isLeftPressed = false;
-   boolean isRightPressed = false;
-   Player player;
-   JLabel leftBird;
-   JLabel rightBird;
-   Sprite sprite;
-   JLabel spriteLabel;
-   int spriteY;
-   public static Random generator = new Random();
-   double x = 0, y = 0, velx = 0, vely = 0;
-   Score score;
-   Lives lives;
-   Loser loser;
-   JLabel livesLabel;
-   JLabel scoreLabel;
+   private JFrame frame;
+   private JLayeredPane pane;
+   private boolean isLeftPressed = false;
+   private boolean isRightPressed = false;
+   private Player player;
+   private JLabel leftBird;
+   private JLabel rightBird;
+   private Sprite sprite;
+   private JLabel spriteLabel;
+   private Score score;
+   private Lives lives;
+   private Loser loser;
+   private JLabel livesLabel;
+   private JLabel scoreLabel;
 
    // Construcor
    public Roadrunner() {
+      frame = new JFrame("Roadrunner");
+      pane = new JLayeredPane();
       frame.addKeyListener(this);
       frame.setFocusable(true);
       frame.setFocusTraversalKeysEnabled(false);
@@ -46,22 +41,22 @@ public class Roadrunner extends JPanel implements ActionListener, KeyListener{
       game.frame.setResizable(false);
       game.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-      // add background
+      // add background to pane
       final JLabel bg = Background.getBackground();
       game.pane.add(bg, JLayeredPane.DEFAULT_LAYER, 2);
 
-      // add score and lives
+      // add score and lives to pane
       game.livesLabel = game.lives.setLives();
       game.scoreLabel = game.score.setScore();
       game.pane.add(game.livesLabel, JLayeredPane.DEFAULT_LAYER, 0);
       game.pane.add(game.scoreLabel, JLayeredPane.DEFAULT_LAYER, 0);
 
-      // add initial player to frame
+      // add initial player to pane
       game.player = new Player(350, 650);
       game.leftBird = game.player.getLeftBird();
       game.pane.add(game.leftBird, JLayeredPane.DEFAULT_LAYER, 1);
 
-      // add arrows to frame
+      // add arrows to pane
       final JLabel leftArrow = Button.getLeftArrow();
       final JLabel rightArrow = Button.getRightArrow();
       game.pane.add(leftArrow, JLayeredPane.DEFAULT_LAYER, 1);
@@ -73,11 +68,11 @@ public class Roadrunner extends JPanel implements ActionListener, KeyListener{
       game.frame.setLocationRelativeTo(null);
       game.frame.setVisible(true);
 
-      // Main Game Loop
+      // Main Game Loop to create sprites, detect collisons, and update score and lives.
       game.sprite = new Sprite();
       game.spriteLabel = game.sprite.getSprite();
       game.pane.add(game.spriteLabel, JLayeredPane.DEFAULT_LAYER, 0);
-
+      
       int speed = 15;
       while (game.lives.getLives() >  0) {
          game.pane.remove(game.spriteLabel);
@@ -93,9 +88,7 @@ public class Roadrunner extends JPanel implements ActionListener, KeyListener{
             game.spriteLabel = game.sprite.getSprite();
             game.pane.add(game.spriteLabel, JLayeredPane.DEFAULT_LAYER, 0);
          }
-
-         // ADD COLLISION DETECTION
-         //CREATE METHOD FOR RETURNING BOUNDS
+         // Collision detection
          Rectangle playerBounds = new Rectangle(game.player.getPlayerX(), game.player.getPlayerY(), game.player.getPlayerWidth(), game.player.getPlayerHeight());
          Rectangle spriteBounds = new Rectangle(game.sprite.getSpriteX(), game.sprite.getSpriteY(), game.sprite.getSpriteWidth(), game.sprite.getSpriteHeight());
    
@@ -142,7 +135,7 @@ public class Roadrunner extends JPanel implements ActionListener, KeyListener{
          Thread.sleep(100);
       }
 
-      // Add End Game
+      // Once zero lives, player loses and game ends
       game.loser = new Loser();
       game.pane.add(game.loser.gameOver(), JLayeredPane.DEFAULT_LAYER, 0);
   }

@@ -1,11 +1,12 @@
 import java.io.File;
 import java.awt.image.BufferedImage; 
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+// Class to notify player game is over
 public class Loser {
 
+    // Method that notifies player of loss and returns JLabel
     public JLabel gameOver() {
         BufferedImage imageLose = null;
         try
