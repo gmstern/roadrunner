@@ -88,7 +88,7 @@ public class Roadrunner extends JPanel implements ActionListener, KeyListener{
          }
          if (game.sprite.getSpriteY() >= 670) {
             game.pane.remove(game.spriteLabel);
-            speed += 5;
+            speed += 2;
             game.sprite = new Sprite();
             game.spriteLabel = game.sprite.getSprite();
             game.pane.add(game.spriteLabel, JLayeredPane.DEFAULT_LAYER, 0);
@@ -201,7 +201,7 @@ public class Roadrunner extends JPanel implements ActionListener, KeyListener{
   // Method to determine if left key is pressed and returns boolean.
   public boolean isLeftKeyPressed(KeyEvent e){
    int code = e.getKeyCode();
-   if (code == 37 && this.player.getPlayerX() >= 150){
+   if (code == 37 && this.player.getPlayerX() >= 160){
       return true;
    }
    else {

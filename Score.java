@@ -9,7 +9,7 @@ public class Score {
         labelScore.setText("Score: " + this.scoreTotal);
         labelScore.setForeground(Color.black);
         labelScore.setFont(new Font("Serif", Font.BOLD, 24));
-        labelScore.setBounds(200, 25, 100, 100);
+        labelScore.setBounds(200, 25, 200, 100);
 
         return labelScore;
     }
