@@ -5,7 +5,7 @@
 
 ## **GAME INSTRUCTIONS:**
 
-**TO PLAY:** To play, download the game by clicking on the following link and select "keep". [Game Link Here](https://github.com/gmstern/roadrunner/raw/master/roadrunner.jar)
+**TO PLAY:** To play, download the game by clicking on the following link and select "keep". You may need to allow game to run by adjusting security preferences/settings. [Game Link Here](https://github.com/gmstern/roadrunner/raw/master/roadrunner.jar)
 
 **GAME OBJECTIVE:** In this game, the player is the roadrunner at the bottom of the window and the objective is to get a high score. The roadrunner can only move left and right within the road. 
 
