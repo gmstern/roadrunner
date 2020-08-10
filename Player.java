@@ -23,7 +23,8 @@ public class Player {
         BufferedImage imageLeft = null;
         try
         {
-            imageLeft = ImageIO.read(new File("resources/leftBird.png"));
+            InputStream isL = Roadrunner.class.getResourceAsStream("/leftBird.png");
+            imageLeft = ImageIO.read(isL);
         }
         catch (Exception e)
         {
@@ -45,7 +46,8 @@ public class Player {
         BufferedImage imageRight = null;
         try
         {
-            imageRight = ImageIO.read(new File("resources/rightBird.png"));
+            InputStream isR = Roadrunner.class.getResourceAsStream("/rightBird.png");
+            imageRight = ImageIO.read(isR);
         }
         catch (Exception e)
         {

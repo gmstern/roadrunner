@@ -14,7 +14,8 @@ public class Button {
         BufferedImage imageLeft = null;
         try
         {
-            imageLeft = ImageIO.read(new File("resources/leftArrow.png"));
+            InputStream is = Roadrunner.class.getResourceAsStream("/leftArrow.png");
+            imageLeft = ImageIO.read(is);
         }
         catch (Exception e)
         {
@@ -33,7 +34,8 @@ public class Button {
         BufferedImage imageRight = null;
         try
         {
-            imageRight = ImageIO.read(new File("resources/rightArrow.png"));
+            InputStream isR = Roadrunner.class.getResourceAsStream("/rightArrow.png");
+            imageRight = ImageIO.read(isR);
         }
         catch (Exception e)
         {

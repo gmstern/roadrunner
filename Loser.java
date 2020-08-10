@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.InputStream;
 import java.awt.image.BufferedImage; 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -11,7 +12,8 @@ public class Loser {
         BufferedImage imageLose = null;
         try
         {
-            imageLose = ImageIO.read(new File("resources/youLose.png"));
+            InputStream is = Roadrunner.class.getResourceAsStream("/youLose.png");
+            imageLose = ImageIO.read(is);
         }
         catch (Exception e)
         {

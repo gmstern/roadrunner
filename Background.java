@@ -1,8 +1,11 @@
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import java.io.InputStream;
 import javax.swing.JLabel;
+import java.awt.Toolkit;
 import java.io.*;
 import java.awt.image.BufferedImage; 
+import java.awt.Image; 
 
 // Class that creates and places the background image.
 public class Background{
@@ -13,7 +16,8 @@ public class Background{
       BufferedImage image = null;
       try
       {
-        image = ImageIO.read(new File("resources/road.png"));
+        InputStream is = Roadrunner.class.getResourceAsStream("/road.png");
+        image = ImageIO.read(is);
       }
       catch (Exception e)
       {
