@@ -4,14 +4,13 @@ import javax.swing.JLabel;
 import java.io.*;
 import java.awt.image.BufferedImage; 
 
-//Don't update player if tries to go beyond bounds of road (x b/w 370 - 530)
-
 // Class that creates, updates, and places the player icon.
 public class Player {
     BufferedImage imgLeft = null;
     BufferedImage imgRight = null;
     private int playerX, playerY;
     Boolean isRight = false;
+    private int playerWidth, playerHeight;
 
     // Constructor
     public Player(int x, int y){
@@ -32,9 +31,11 @@ public class Player {
             System.exit(1);
         }
         ImageIcon imageLeftIcon = new ImageIcon(imageLeft);
+        this.playerWidth = imageLeftIcon.getIconWidth();
+        this.playerHeight = imageLeftIcon.getIconHeight();
         JLabel jLabelLeft = new JLabel();
         jLabelLeft.setIcon(imageLeftIcon);
-        jLabelLeft.setBounds(this.playerX, this.playerY, imageLeftIcon.getIconWidth() + 20, imageLeftIcon.getIconHeight() + 20);
+        jLabelLeft.setBounds(this.playerX, this.playerY, this.playerWidth + 20, this.playerHeight + 20);
         this.isRight = false;
         return jLabelLeft;
     }
@@ -52,9 +53,11 @@ public class Player {
         System.exit(1);
         }
         ImageIcon imageRightIcon = new ImageIcon(imageRight);
+        this.playerWidth = imageRightIcon.getIconWidth();
+        this.playerHeight = imageRightIcon.getIconHeight();
         JLabel jLabelRight = new JLabel();
         jLabelRight.setIcon(imageRightIcon);
-        jLabelRight.setBounds(this.playerX, this.playerY, imageRightIcon.getIconWidth() + 20, imageRightIcon.getIconHeight() + 20);
+        jLabelRight.setBounds(this.playerX, this.playerY, this.playerWidth + 20, this.playerHeight + 20);
         this.isRight = true;
         return jLabelRight;
     }
@@ -63,11 +66,11 @@ public class Player {
     public void updatePlayer(boolean leftPressed, boolean rightPressed) {
 
         if (leftPressed == true){
-            this.playerX -= 25;
+            this.playerX -= 50;
             this.isRight = false;
         }
         else if (rightPressed == true){
-            this.playerX += 25;
+            this.playerX += 50;
             this.isRight = true;
         }
     }
@@ -112,8 +115,20 @@ public class Player {
     // Method to return player's direction as type Boolean.
     public Boolean isPlayerRight(){
             return this.isRight;
-        }
     }
+
+    //Return player width
+	public int getPlayerWidth() {
+		return this.playerWidth;
+    }
+
+     //Return player height
+	public int getPlayerHeight() {
+		return this.playerHeight;
+	}
+
+}
+
     
 
 

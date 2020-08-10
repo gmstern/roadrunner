@@ -5,6 +5,9 @@ import java.io.*;
 import java.awt.image.BufferedImage; 
 import java.util.Random;
 
+//Method to return isHarmful
+//methods to return width & height
+
 // Class that creates the sprites for the game
 public class Sprite {
     final int SPRITE_Y_START = 160;
@@ -16,6 +19,7 @@ public class Sprite {
     private BufferedImage image;
     private String filePath;
     public static Random generator = new Random();
+    private int spriteWidth, spriteHeight;
     
     //Constructor. Takes in image path and sets up as JLABEL
     public Sprite (){
@@ -43,9 +47,11 @@ public class Sprite {
             System.exit(1);
         }
         ImageIcon imageIcon = new ImageIcon(this.image);
+        this.spriteWidth = imageIcon.getIconWidth();
+        this.spriteHeight = imageIcon.getIconHeight();
         JLabel jLabel = new JLabel();
         jLabel.setIcon(imageIcon);
-        jLabel.setBounds(this.spriteX, this.spriteY, imageIcon.getIconWidth() + 20, imageIcon.getIconHeight() + 20);
+        jLabel.setBounds(this.spriteX, this.spriteY, this.spriteWidth + 20, this.spriteHeight + 20);
 
         return jLabel;
     }
@@ -54,6 +60,12 @@ public class Sprite {
     public int setSpriteX(){
         int xValue = 370 + generator.nextInt(160);
         return xValue;
+    }
+
+    // Method to return sprite X value
+    public int getSpriteX(){
+        
+        return this.spriteX;
     }
 
     // Method to update sprite yValue
@@ -89,5 +101,20 @@ public class Sprite {
             break;
         }
         return spritePath;
+    }
+
+    //Return sprite width
+	public int getSpriteWidth() {
+		return this.spriteWidth;
+    }
+
+    //Return sprite height
+	public int getSpriteHeight() {
+		return this.spriteHeight;
+    }
+    
+    //Return boolean isHarmful
+    public boolean isHarmful(){
+        return this.isHarmful;
     }
 }

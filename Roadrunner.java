@@ -2,6 +2,7 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 import java.util.Random;
+import java.awt.Rectangle;
 
 // Class that creates game object and contains main game logic.
 public class Roadrunner extends JPanel implements ActionListener, KeyListener{
@@ -23,7 +24,10 @@ public class Roadrunner extends JPanel implements ActionListener, KeyListener{
    double x = 0, y = 0, velx = 0, vely = 0;
    Score score;
    Lives lives;
-  
+   Loser loser;
+   JLabel livesLabel;
+   JLabel scoreLabel;
+
    // Construcor
    public Roadrunner() {
       frame.addKeyListener(this);
@@ -47,9 +51,11 @@ public class Roadrunner extends JPanel implements ActionListener, KeyListener{
       game.pane.add(bg, JLayeredPane.DEFAULT_LAYER, 2);
 
       // add score and lives
-      game.pane.add(game.lives.setLives(), JLayeredPane.DEFAULT_LAYER, 0);
-      game.pane.add(game.score.setScore(), JLayeredPane.DEFAULT_LAYER, 0);
-   
+      game.livesLabel = game.lives.setLives();
+      game.scoreLabel = game.score.setScore();
+      game.pane.add(game.livesLabel, JLayeredPane.DEFAULT_LAYER, 0);
+      game.pane.add(game.scoreLabel, JLayeredPane.DEFAULT_LAYER, 0);
+
       // add initial player to frame
       game.player = new Player(350, 650);
       game.leftBird = game.player.getLeftBird();
@@ -68,42 +74,77 @@ public class Roadrunner extends JPanel implements ActionListener, KeyListener{
       game.frame.setVisible(true);
 
       // Main Game Loop
-         game.sprite = new Sprite();
-         game.spriteLabel = game.sprite.getSprite();
-         game.pane.add(game.spriteLabel, JLayeredPane.DEFAULT_LAYER, 0);
-         
-         int speed = 10;
-         int count = 0;
-         //need to change to != 0 lives
-         while (count < 10000) {
-            game.pane.remove(game.spriteLabel);
-            if (game.sprite.getSpriteY() < 670){
-               game.sprite.updateSpriteY(speed);
-               game.spriteLabel = game.sprite.getSprite();
-               game.pane.add(game.spriteLabel, JLayeredPane.DEFAULT_LAYER, 0);
-            }
-            if (game.sprite.getSpriteY() >= 670){
-               game.pane.remove(game.spriteLabel);
-               speed++;
-               game.sprite = new Sprite();
-               game.spriteLabel = game.sprite.getSprite();
-               game.pane.add(game.spriteLabel, JLayeredPane.DEFAULT_LAYER, 0);
-            }
-            
-            //ADD COLLISION DETECTION
+      game.sprite = new Sprite();
+      game.spriteLabel = game.sprite.getSprite();
+      game.pane.add(game.spriteLabel, JLayeredPane.DEFAULT_LAYER, 0);
 
-            game.frame.add(game.pane);
-            game.frame.pack();
-            game.frame.setLocationRelativeTo(null);
-            game.frame.setVisible(true);
-            game.pane.revalidate();
-            game.pane.repaint();
-
-            Thread.sleep(100);
-            count++;
+      int speed = 15;
+      while (game.lives.getLives() >  0) {
+         game.pane.remove(game.spriteLabel);
+         if (game.sprite.getSpriteY() < 670) {
+            game.sprite.updateSpriteY(speed);
+            game.spriteLabel = game.sprite.getSprite();
+            game.pane.add(game.spriteLabel, JLayeredPane.DEFAULT_LAYER, 0);
          }
-         
-      //Add End Game
+         if (game.sprite.getSpriteY() >= 670) {
+            game.pane.remove(game.spriteLabel);
+            speed += 5;
+            game.sprite = new Sprite();
+            game.spriteLabel = game.sprite.getSprite();
+            game.pane.add(game.spriteLabel, JLayeredPane.DEFAULT_LAYER, 0);
+         }
+
+         // ADD COLLISION DETECTION
+         //CREATE METHOD FOR RETURNING BOUNDS
+         Rectangle playerBounds = new Rectangle(game.player.getPlayerX(), game.player.getPlayerY(), game.player.getPlayerWidth(), game.player.getPlayerHeight());
+         Rectangle spriteBounds = new Rectangle(game.sprite.getSpriteX(), game.sprite.getSpriteY(), game.sprite.getSpriteWidth(), game.sprite.getSpriteHeight());
+   
+         if(playerBounds.intersects(spriteBounds)){ 
+            if(game.sprite.isHarmful() == true){
+               game.pane.remove(game.spriteLabel);
+               game.pane.remove(game.livesLabel);
+               game.livesLabel = game.lives.updateLives(); 
+               game.pane.add(game.livesLabel, JLayeredPane.DEFAULT_LAYER, 0);
+               
+               game.frame.add(game.pane);
+               game.frame.pack();
+               game.frame.setLocationRelativeTo(null);
+               game.frame.setVisible(true);
+               game.pane.revalidate();
+               game.pane.repaint();
+               game.sprite = new Sprite();
+   
+            } 
+            else if (game.sprite.isHarmful() == false) {
+               game.pane.remove(game.spriteLabel);
+               game.pane.remove(game.scoreLabel);
+               game.scoreLabel = game.score.updateScore(); 
+               game.pane.add(game.scoreLabel, JLayeredPane.DEFAULT_LAYER, 0);
+
+               game.frame.add(game.pane);
+               game.frame.pack();
+               game.frame.setLocationRelativeTo(null);
+               game.frame.setVisible(true);
+               game.pane.revalidate();
+               game.pane.repaint();
+               game.sprite = new Sprite();
+
+            } 
+         }
+
+         game.frame.add(game.pane);
+         game.frame.pack();
+         game.frame.setLocationRelativeTo(null);
+         game.frame.setVisible(true);
+         game.pane.revalidate();
+         game.pane.repaint();
+
+         Thread.sleep(100);
+      }
+
+      // Add End Game
+      game.loser = new Loser();
+      game.pane.add(game.loser.gameOver(), JLayeredPane.DEFAULT_LAYER, 0);
   }
 
   // Method to detect when key pressed and updates player - interrupts sequence of main method
