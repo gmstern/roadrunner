@@ -14,7 +14,7 @@ public class Button {
         BufferedImage imageLeft = null;
         try
         {
-            imageLeft = ImageIO.read(new File("leftArrow.png"));
+            imageLeft = ImageIO.read(new File("resources/leftArrow.png"));
         }
         catch (Exception e)
         {
@@ -33,7 +33,7 @@ public class Button {
         BufferedImage imageRight = null;
         try
         {
-            imageRight = ImageIO.read(new File("rightArrow.png"));
+            imageRight = ImageIO.read(new File("resources/rightArrow.png"));
         }
         catch (Exception e)
         {

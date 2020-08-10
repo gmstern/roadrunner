@@ -23,7 +23,7 @@ public class Player {
         BufferedImage imageLeft = null;
         try
         {
-            imageLeft = ImageIO.read(new File("leftBird.png"));
+            imageLeft = ImageIO.read(new File("resources/leftBird.png"));
         }
         catch (Exception e)
         {
@@ -45,7 +45,7 @@ public class Player {
         BufferedImage imageRight = null;
         try
         {
-            imageRight = ImageIO.read(new File("rightBird.png"));
+            imageRight = ImageIO.read(new File("resources/rightBird.png"));
         }
         catch (Exception e)
         {

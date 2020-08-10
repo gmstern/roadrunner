@@ -13,7 +13,7 @@ public class Background{
       BufferedImage image = null;
       try
       {
-        image = ImageIO.read(new File("road.png"));
+        image = ImageIO.read(new File("resources/road.png"));
       }
       catch (Exception e)
       {

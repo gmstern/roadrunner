@@ -11,7 +11,7 @@ public class Loser {
         BufferedImage imageLose = null;
         try
         {
-            imageLose = ImageIO.read(new File("youLose.png"));
+            imageLose = ImageIO.read(new File("resources/youLose.png"));
         }
         catch (Exception e)
         {

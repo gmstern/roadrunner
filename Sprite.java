@@ -8,9 +8,9 @@ import java.util.Random;
 // Class that creates and updates the sprites
 public class Sprite {
     final int SPRITE_Y_START = 160;
-    final String LIZARD_PATH = "lizard.png";
-    final String CAR_PATH = "car.png";
-    final String CACTUS_PATH = "cactus.png";
+    final String LIZARD_PATH = "resources/lizard.png";
+    final String CAR_PATH = "resources/car.png";
+    final String CACTUS_PATH = "resources/cactus.png";
     private Boolean isHarmful = null;
     private int spriteX, spriteY;
     private BufferedImage image;
