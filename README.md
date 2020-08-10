@@ -1,5 +1,5 @@
 # RoadRunner
-### Welcome to Roadrunner, my first JAVA game! I developed this game and created the artwork over a 2 week period as a way to practice my JAVA skills. This game was developed using skills learned in my Introduction to Computer Science course.
+### Welcome to Roadrunner, my first JAVA game! I developed this game (and artwork) over a two week period as a way to practice my JAVA skills. This game was developed using skills learned in my Introduction to Computer Science course.
 
 ![Alt Text](https://j.gifs.com/XLOzgW.gif)
 
