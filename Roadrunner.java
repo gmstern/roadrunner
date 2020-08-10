@@ -160,7 +160,7 @@ public class Roadrunner extends JPanel implements ActionListener, KeyListener{
   // Method to determine if left key is pressed and returns boolean.
   public boolean isLeftKeyPressed(KeyEvent e){
    int code = e.getKeyCode();
-   if (code == 37){
+   if (code == 37 && this.player.getPlayerX() >= 150){
       return true;
    }
    else {
@@ -171,7 +171,7 @@ public class Roadrunner extends JPanel implements ActionListener, KeyListener{
 // Method to determine if right key is pressed and returns boolean.
 public boolean isRightKeyPressed(KeyEvent e){
    int code = e.getKeyCode();
-   if (code == 39){
+   if (code == 39 && this.player.getPlayerX() <= 580){
       return true;
    }
    else {

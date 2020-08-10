@@ -4,6 +4,8 @@ import javax.swing.JLabel;
 import java.io.*;
 import java.awt.image.BufferedImage; 
 
+//Don't update player if tries to go beyond bounds of road (x b/w 370 - 530)
+
 // Class that creates, updates, and places the player icon.
 public class Player {
     BufferedImage imgLeft = null;
