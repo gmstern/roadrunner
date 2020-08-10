@@ -1,9 +1,11 @@
 # RoadRunner
  Welcome to RoadRunner, my first JAVA game! I developed this game (and artwork)git over a two week period as a way to practice my JAVA skills. This game was developed to build on skills learned in my Introduction to Computer Science course.
 
-![Alt Text](https://j.gifs.com/XLOzgW.gif)
+![Game Gif](https://j.gifs.com/XLOzgW.gif)
 
 ## **GAME INSTRUCTIONS:**
+
+**TO PLAY:** To play, download the game by clicking on the following link and select "keep". [Game Link Here](https://github.com/gmstern/roadrunner/raw/master/roadrunner.jar)
 
 **GAME OBJECTIVE:** In this game, the player is the roadrunner at the bottom of the window and the objective is to get a high score. The roadrunner can only move left and right within the road. 
 
@@ -23,5 +25,5 @@
 
 [Link to Full Demo Here](https://youtu.be/GjLHMNIQxLs)
 
-**Thanks for playing and good luck!**
 
+**Thanks for playing and good luck!**
