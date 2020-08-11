@@ -17,6 +17,7 @@ public class Sprite {
     private String filePath;
     public static Random generator = new Random();
     private int spriteWidth, spriteHeight;
+    private final int MAX_SPEED = 45;
     
     // Constructor
     public Sprite (){
@@ -56,13 +57,18 @@ public class Sprite {
 
     // Method to create and randomly select sprite x-value
     public int setSpriteX(){
-        int xValue = 370 + generator.nextInt(160);
+        int xValue = 320 + generator.nextInt(210);
         return xValue;
     }
 
     // Method to update sprite Y value (i.e. speed)
     public void updateSpriteY(int speed){
+           if (speed < MAX_SPEED){
             this.spriteY += speed;
+           }
+           else{
+               this.spriteY += MAX_SPEED;
+           }
         }
 
     //Method to update and move sprite down screen each frame
